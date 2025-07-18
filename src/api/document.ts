@@ -61,12 +61,19 @@ export const useCreateDocument = () => {
 
 const updateDocument = async (_url: string, { arg }: { arg: any}) => {
   console.log("Updating document with data:", arg);
+  const updateData: any = {
+    updated_at: new Date().toISOString(),
+  };
+  if (arg.title !== undefined && arg.title !== null) {
+    updateData.title = arg.title;
+  }
+  if (arg.content !== undefined && arg.content !== null) {
+    updateData.content = arg.content;
+  }
+
   const { data, error } = await supabase
     .from("document")
-    .update({
-      content: arg.content,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updateData)
     .eq("id", arg.id)
     .select()
     .single();

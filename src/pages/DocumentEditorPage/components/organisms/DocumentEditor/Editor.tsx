@@ -7,36 +7,28 @@ import {
   Editor as EditorComponent,
 } from "./PlateEditor/editor";
 import { EditorKit } from "./EditorKit";
-import { useGetDocumentById } from "@/api/document";
 
 interface EditorProps {
-  value: any | null;
   documentId: string;
+  title: string | null;
+  value: any | null;
   onChange: (value: any) => void;
 }
 
 interface EditableHeadingProps {
+  title: string;
   documentId: string;
 }
 
-const EditableHeading = ({ documentId }: EditableHeadingProps) => {
+const EditableHeading = ({ title: initialTitle, documentId }: EditableHeadingProps) => {
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const [title, setTitle] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-
-  const { data: document } = useGetDocumentById(documentId);
-
-  const currentTitle = document?.title || "New Document";
+  const showPlaceholder = !initialTitle || initialTitle === "New Document";
 
   useEffect(() => {
-    if (headingRef.current && currentTitle && !isEditing) {
-      headingRef.current.innerText =
-        currentTitle !== "New Document" ? currentTitle : "";
-      setTitle(currentTitle);
+    if (headingRef.current && initialTitle) {
+      headingRef.current.innerText = initialTitle !== 'New Document' ? initialTitle : '' ;
     }
-  }, [currentTitle, isEditing]);
-
-  const showPlaceholder = !title || title === "New Document";
+  }, [initialTitle]);
 
   return (
     <h1
@@ -58,17 +50,22 @@ const EditableHeading = ({ documentId }: EditableHeadingProps) => {
   );
 };
 
-export default function Editor({ value, documentId, onChange }: EditorProps) {
+export default function Editor({
+  title,
+  value,
+  documentId,
+  onChange,
+}: EditorProps) {
   console.log(
     "Editor component loaded with documentId:",
     documentId,
     "and value:",
     value
   );
-  
+
   const editor = usePlateEditor({
     plugins: EditorKit,
-    value: value
+    value: value,
   });
 
   const saveTimeoutRef = useRef<NodeJS.Timeout>(null);
@@ -95,7 +92,7 @@ export default function Editor({ value, documentId, onChange }: EditorProps) {
   return (
     <Plate editor={editor} onChange={handleChange}>
       <EditorContainer>
-        <EditableHeading documentId={documentId} />
+        <EditableHeading documentId={documentId} title={title ?? ""} />
         <EditorComponent variant="default" />
       </EditorContainer>
     </Plate>

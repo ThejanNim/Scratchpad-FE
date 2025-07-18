@@ -31,6 +31,7 @@ export default function DocumentEditorPage() {
             {document ? (
               <Editor
                 key={document.id}
+                title={document?.title}
                 value={document?.content}
                 documentId={id ?? ""}
                 onChange={updateDocument}

@@ -1,4 +1,3 @@
-import "./App.css";
 import { Navigate, Route, Routes } from "react-router";
 import SignIn from "./pages/Auth/SignInPage/SignInPage";
 import SignUp from "./pages/Auth/SignUpPage/SignUpPage";
