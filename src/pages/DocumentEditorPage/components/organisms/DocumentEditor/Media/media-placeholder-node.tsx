@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import * as React from 'react';
@@ -16,7 +17,7 @@ import { PlateElement, useEditorPlugin, withHOC } from 'platejs/react';
 import { useFilePicker } from 'use-file-picker';
 
 import { cn } from '@/utils/styleutils';
-import { useUploadFile } from '@/hooks/use-upload-file';
+import { useUploadFile } from '@/pages/DocumentEditorPage/components/organisms/DocumentEditor/Media/use-upload-file';
 
 const CONTENT: Record<
   string,

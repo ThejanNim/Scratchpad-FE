@@ -16,7 +16,7 @@ import {
   InlineComboboxInput,
   InlineComboboxItem,
 } from '../Shared/inline-combobox';
-import { useDebounce } from '@/hooks/use-debounce';
+import { useDebounce } from '@/pages/DocumentEditorPage/components/organisms/DocumentEditor/Emoji/use-debounce';
 
 export function EmojiInputElement(props: PlateElementProps) {
   const { children, editor, element } = props;
