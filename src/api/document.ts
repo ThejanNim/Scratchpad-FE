@@ -15,9 +15,8 @@ const getDocumentsByCollections = async (collectionIds: string[]) => {
 };
 
 export const useGetDocumentsByCollections = (collectionIds: string[]) => {
-  const { data, error, mutate } = useSWR(
-    collectionIds,
-    (collectionIds) => getDocumentsByCollections(collectionIds)
+  const { data, error, mutate } = useSWR(collectionIds, (collectionIds) =>
+    getDocumentsByCollections(collectionIds)
   );
 
   if (error) throw error;
@@ -59,7 +58,7 @@ export const useCreateDocument = () => {
   return { createDocument: trigger, isMutating };
 };
 
-const updateDocument = async (_url: string, { arg }: { arg: any}) => {
+const updateDocument = async (_url: string, { arg }: { arg: any }) => {
   console.log("Updating document with data:", arg);
   const updateData: any = {
     updated_at: new Date().toISOString(),
@@ -85,7 +84,7 @@ const updateDocument = async (_url: string, { arg }: { arg: any}) => {
 
   console.log("Document updated successfully:", data);
   return data;
-}
+};
 
 export const useUpdateDocument = () => {
   const { trigger, isMutating } = useSWRMutation("document", updateDocument);

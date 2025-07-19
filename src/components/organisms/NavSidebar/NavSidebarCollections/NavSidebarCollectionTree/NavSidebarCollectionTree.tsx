@@ -34,6 +34,7 @@ import { useGetUser } from "@/api/user";
 import { useCreateCollection } from "@/api/collection";
 import { useCreateDocument } from "@/api/document";
 import { NavLink } from "react-router";
+import clsx from "clsx";
 
 export interface DocumentItemProps {
   document: IDocumentItem;
@@ -71,8 +72,6 @@ export default function NavSidebarCollectionTree({
   toggleSection,
   documentId,
 }: NavSidebarCollectionTreeProps) {
-  //   const { documentId, createDocument, createCollection, setDocumentId } = useCollectionDocument();
-  //   const user = useUser();
   const { data: user } = useGetUser();
   const { createCollection } = useCreateCollection();
   const { createDocument } = useCreateDocument();
@@ -98,18 +97,31 @@ export default function NavSidebarCollectionTree({
         >
           <SidebarMenuItem>
             <div className="flex items-center group/collection-item">
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton
-                  className="flex-1"
-                  style={{ paddingLeft: `${level * 1}rem` }}
+              <SidebarMenuButton
+                className="flex-1"
+                style={{ paddingLeft: `${level * 1}rem` }}
+              >
+                <CollapsibleTrigger
+                  asChild
+                  className="hover:bg-gray-200 hover:rounded"
                 >
                   {hasChildren && (
-                    <ChevronRight className="transition-transform group-data-[state=open]/collapsible:rotate-90 size-4" />
+                    <ChevronRight
+                      className={clsx(
+                        "transition-transform size-4",
+                        isOpen && "rotate-90"
+                      )}
+                    />
                   )}
-                  <Folder className="size-4" />
-                  <span>{collection.name}</span>
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
+                </CollapsibleTrigger>
+
+                <NavLink to={`/collection/${collection.id}`}>
+                  <div className="flex items-center gap-2 whitespace-nowrap overflow-ellipsis overflow-hidden min-w-0">
+                    <Folder width={16} height={16} className="shrink-0" />
+                    <span className="truncate">{collection.name}</span>
+                  </div>
+                </NavLink>
+              </SidebarMenuButton>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -223,10 +235,10 @@ export default function NavSidebarCollectionTree({
               }`}
               style={{ paddingLeft: `${level * 1}rem` }}
             >
-              <NavLink 
+              <NavLink
                 to={`/documents/${document.id}`}
                 onClick={() => {
-                //   setDocumentId(document.id);
+                  //   setDocumentId(document.id);
                 }}
               >
                 <File className="size-3" />

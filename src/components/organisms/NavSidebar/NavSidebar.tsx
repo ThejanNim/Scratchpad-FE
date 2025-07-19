@@ -34,7 +34,6 @@ export interface IDocumentItem {
 
 interface NavSidebarProps extends React.ComponentProps<typeof Sidebar> {
   collections: ICollection[] | null;
-  documents: IDocumentItem[] | null;
   user?: any | null;
   handleSignOut: any;
   collapsible?: "icon" | "offcanvas" | "none";
@@ -60,7 +59,6 @@ const navSecondary = [
 
 export default function NavSidebar({
   collections = [],
-  documents = [],
   user = [],
   collapsible = "offcanvas",
   ...props
@@ -81,7 +79,7 @@ export default function NavSidebar({
       </SidebarHeader>
 
       <SidebarContent>
-        {collections?.length === 0 && documents?.length === 0 ? (
+        {collections?.length === 0 ? (
           <div className="text-sm text-muted-foreground p-2">
             No collections found
           </div>
