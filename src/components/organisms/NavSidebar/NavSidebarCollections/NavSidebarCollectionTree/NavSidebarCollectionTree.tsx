@@ -236,7 +236,7 @@ export default function NavSidebarCollectionTree({
               style={{ paddingLeft: `${level * 1}rem` }}
             >
               <NavLink
-                to={`/documents/${document.id}`}
+                to={`/document/${document.id}`}
                 onClick={() => {
                   //   setDocumentId(document.id);
                 }}

@@ -10,19 +10,21 @@ export default function EditorTemplate() {
   const { data: collections } = useGetCollectionsByUser(user?.id || "");
 
   return (
-    <>
-      <SidebarProvider defaultOpen={true} open={true} onOpenChange={() => {}}>
+    <SidebarProvider defaultOpen={true} open={true} onOpenChange={() => {}}>
+      <div className="flex h-screen w-full">
         <NavSidebar
           collections={collections ?? null}
           user={user}
           handleSignOut={() => {}}
           collapsible="offcanvas"
         />
-        <main className="w-full">
+        <div className="flex flex-col flex-1">
           <Header />
-          <Outlet />
-        </main>
-      </SidebarProvider>
-    </>
+          <main className="flex-1 overflow-auto w-full">
+            <Outlet />
+          </main>
+        </div>
+      </div>
+    </SidebarProvider>
   );
 }

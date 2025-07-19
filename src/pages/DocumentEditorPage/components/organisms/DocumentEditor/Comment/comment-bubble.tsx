@@ -1,82 +1,103 @@
-"use client"
-
-import * as React from "react"
-import { Heart, Reply, CheckCircle2, AlertCircle, X, Send, MoreHorizontal } from "lucide-react"
-import { Button } from "@/components/atoms/Button/Button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/atoms/Avatar/Avatar"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/atoms/DropdownMenu/DropdownMenu"
+import * as React from "react";
+import {
+  Heart,
+  Reply,
+  CheckCircle2,
+  AlertCircle,
+  X,
+  Send,
+  MoreHorizontal,
+} from "lucide-react";
+import { Button } from "@/components/atoms/Button/Button";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/atoms/Avatar/Avatar";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/atoms/DropdownMenu/DropdownMenu";
 
 interface CommentThread {
-  id: string
+  id: string;
   author: {
-    name: string
-    avatar: string
-    initials: string
-    role: string
-    color: string
-  }
-  content: string
-  timestamp: string
-  status: "open" | "resolved" | "archived"
-  selectedText: string
-  likes: number
-  isLiked: boolean
+    name: string;
+    avatar: string;
+    initials: string;
+    role: string;
+    color: string;
+  };
+  content: string;
+  timestamp: string;
+  status: "open" | "resolved" | "archived";
+  selectedText: string;
+  likes: number;
+  isLiked: boolean;
   replies: Array<{
-    id: string
+    id: string;
     author: {
-      name: string
-      avatar: string
-      initials: string
-      role: string
-      color: string
-    }
-    content: string
-    timestamp: string
-    likes: number
-    isLiked: boolean
-  }>
+      name: string;
+      avatar: string;
+      initials: string;
+      role: string;
+      color: string;
+    };
+    content: string;
+    timestamp: string;
+    likes: number;
+    isLiked: boolean;
+  }>;
 }
 
 interface CommentBubbleProps {
-  comment: CommentThread
-  position: { x: number; y: number }
-  onClose: () => void
-  onLike: (commentId: string, replyId?: string) => void
-  onResolve: (commentId: string) => void
+  comment: CommentThread;
+  position: { x: number; y: number };
+  onClose: () => void;
+  onLike: (commentId: string, replyId?: string) => void;
+  onResolve: (commentId: string) => void;
 }
 
-export function CommentBubble({ comment, position, onClose, onLike, onResolve }: CommentBubbleProps) {
-  const [replyText, setReplyText] = React.useState("")
-  const [showReplyInput, setShowReplyInput] = React.useState(false)
+export function CommentBubble({
+  comment,
+  position,
+  onClose,
+  onLike,
+  onResolve,
+}: CommentBubbleProps) {
+  const [replyText, setReplyText] = React.useState("");
+  const [showReplyInput, setShowReplyInput] = React.useState(false);
 
   const handleAddReply = () => {
-    if (!replyText.trim()) return
+    if (!replyText.trim()) return;
     // This would typically add the reply to your state/database
-    setReplyText("")
-    setShowReplyInput(false)
-  }
+    setReplyText("");
+    setShowReplyInput(false);
+  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "resolved":
-        return <CheckCircle2 className="h-4 w-4 text-green-500" />
+        return <CheckCircle2 className="h-4 w-4 text-green-500" />;
       default:
-        return <AlertCircle className="h-4 w-4 text-orange-500" />
+        return <AlertCircle className="h-4 w-4 text-orange-500" />;
     }
-  }
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "resolved":
-        return "bg-green-50 border-green-200"
+        return "bg-green-50 border-green-200";
       default:
-        return "bg-white border-gray-200"
+        return "bg-white border-gray-200";
     }
-  }
+  };
 
   return (
     <div
@@ -92,8 +113,13 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
             <div className="flex items-center gap-2">
               <div className="relative">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={comment.author.avatar || ""} alt={comment.author.name} />
-                  <AvatarFallback className={`text-xs text-white ${comment.author.color}`}>
+                  <AvatarImage
+                    src={comment.author.avatar || ""}
+                    alt={comment.author.name}
+                  />
+                  <AvatarFallback
+                    className={`text-xs text-white ${comment.author.color}`}
+                  >
                     {comment.author.initials}
                   </AvatarFallback>
                 </Avatar>
@@ -103,7 +129,9 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-sm">{comment.author.name}</span>
+                  <span className="font-medium text-sm">
+                    {comment.author.name}
+                  </span>
                   {getStatusIcon(comment.status)}
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -126,10 +154,17 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
                     {comment.status === "resolved" ? "Reopen" : "Resolve"}
                   </DropdownMenuItem>
                   <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                  <DropdownMenuItem className="text-red-600">
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-              <Button variant="ghost" size="sm" className="h-6 w-6 p-0" onClick={onClose}>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 w-6 p-0"
+                onClick={onClose}
+              >
                 <X className="h-3 w-3" />
               </Button>
             </div>
@@ -149,8 +184,17 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
           {/* Actions */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => onLike(comment.id)}>
-                <Heart className={`h-3 w-3 mr-1 ${comment.isLiked ? "fill-red-500 text-red-500" : ""}`} />
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 px-2 text-xs"
+                onClick={() => onLike(comment.id)}
+              >
+                <Heart
+                  className={`h-3 w-3 mr-1 ${
+                    comment.isLiked ? "fill-red-500 text-red-500" : ""
+                  }`}
+                />
                 {comment.likes}
               </Button>
               <Button
@@ -179,8 +223,13 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
                     <div className="flex items-start gap-2">
                       <div className="relative">
                         <Avatar className="h-6 w-6">
-                          <AvatarImage src={reply.author.avatar || ""} alt={reply.author.name} />
-                          <AvatarFallback className={`text-xs text-white ${reply.author.color}`}>
+                          <AvatarImage
+                            src={reply.author.avatar || ""}
+                            alt={reply.author.name}
+                          />
+                          <AvatarFallback
+                            className={`text-xs text-white ${reply.author.color}`}
+                          >
                             {reply.author.initials}
                           </AvatarFallback>
                         </Avatar>
@@ -190,10 +239,16 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-xs">{reply.author.name}</span>
-                          <span className="text-xs text-muted-foreground">{reply.timestamp}</span>
+                          <span className="font-medium text-xs">
+                            {reply.author.name}
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {reply.timestamp}
+                          </span>
                         </div>
-                        <p className="text-xs text-muted-foreground mt-1">{reply.content}</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {reply.content}
+                        </p>
                         <div className="flex items-center gap-2 mt-2">
                           <Button
                             variant="ghost"
@@ -201,7 +256,11 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
                             className="h-5 px-1 text-xs"
                             onClick={() => onLike(comment.id, reply.id)}
                           >
-                            <Heart className={`h-2 w-2 mr-1 ${reply.isLiked ? "fill-red-500 text-red-500" : ""}`} />
+                            <Heart
+                              className={`h-2 w-2 mr-1 ${
+                                reply.isLiked ? "fill-red-500 text-red-500" : ""
+                              }`}
+                            />
                             {reply.likes}
                           </Button>
                         </div>
@@ -223,11 +282,19 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
                 className="min-h-[60px] text-sm"
               />
               <div className="flex items-center gap-2">
-                <Button size="sm" onClick={handleAddReply} disabled={!replyText.trim()}>
+                <Button
+                  size="sm"
+                  onClick={handleAddReply}
+                  disabled={!replyText.trim()}
+                >
                   <Send className="h-3 w-3 mr-1" />
                   Reply
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => setShowReplyInput(false)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowReplyInput(false)}
+                >
                   Cancel
                 </Button>
               </div>
@@ -236,5 +303,5 @@ export function CommentBubble({ comment, position, onClose, onLike, onResolve }:
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
