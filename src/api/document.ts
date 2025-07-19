@@ -10,7 +10,6 @@ const getDocumentsByCollections = async (collectionIds: string[]) => {
     .in("collection_id", collectionIds)
     .order("title");
 
-  console.log("Fetched document:", data, error);
   if (error) throw error;
   return data;
 };
