@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { AIChatPlugin } from "@platejs/ai/react";
 import {
   BLOCK_CONTEXT_MENU_ID,
@@ -18,11 +16,12 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@/components/atoms/ContextMenu/ContextMenu";
+import { useCallback, useEffect, useState } from "react";
 
 function useIsTouchDevice() {
-  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function onResize() {
       setIsTouchDevice(
         "ontouchstart" in window ||
@@ -46,11 +45,11 @@ type Value = "askAI" | null;
 
 export function BlockContextMenu({ children }: { children: React.ReactNode }) {
   const { api, editor } = useEditorPlugin(BlockMenuPlugin);
-  const [value, setValue] = React.useState<Value>(null);
+  const [value, setValue] = useState<Value>(null);
   const isTouch = useIsTouchDevice();
   const [readOnly] = usePlateState("readOnly");
 
-  const handleTurnInto = React.useCallback(
+  const handleTurnInto = useCallback(
     (type: string) => {
       editor
         .getApi(BlockSelectionPlugin)
@@ -68,7 +67,7 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
     [editor]
   );
 
-  const handleAlign = React.useCallback(
+  const handleAlign = useCallback(
     (align: "center" | "left" | "right") => {
       editor
         .getTransforms(BlockSelectionPlugin)
@@ -115,7 +114,6 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
         onCloseAutoFocus={(e) => {
           e.preventDefault();
           editor.getApi(BlockSelectionPlugin).blockSelection.focus();
-
           if (value === "askAI") {
             editor.getApi(AIChatPlugin).aiChat.show();
           }
@@ -131,7 +129,7 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
           >
             Ask AI
           </ContextMenuItem>
-          <ContextMenuItem
+          {/* <ContextMenuItem
             onClick={() => {
               editor
                 .getTransforms(BlockSelectionPlugin)
@@ -140,7 +138,7 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
             }}
           >
             Delete
-          </ContextMenuItem>
+          </ContextMenuItem> */}
           <ContextMenuItem
             onClick={() => {
               editor
@@ -149,7 +147,6 @@ export function BlockContextMenu({ children }: { children: React.ReactNode }) {
             }}
           >
             Duplicate
-            {/* <ContextMenuShortcut>⌘ + D</ContextMenuShortcut> */}
           </ContextMenuItem>
           <ContextMenuSub>
             <ContextMenuSubTrigger>Turn into</ContextMenuSubTrigger>
