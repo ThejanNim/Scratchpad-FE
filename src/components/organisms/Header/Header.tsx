@@ -1,6 +1,11 @@
-"use client";
-
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/atoms/Breadcrumb/Breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/atoms/Breadcrumb/Breadcrumb";
 import { SidebarTrigger } from "@/components/atoms/Sidebar/Sidebar";
 import { Focus } from "lucide-react";
 

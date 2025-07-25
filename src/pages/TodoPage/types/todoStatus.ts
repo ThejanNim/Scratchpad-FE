@@ -1,0 +1,1 @@
+export type TodoStatus = 0 | 1 | 2;

@@ -59,7 +59,6 @@ export const useCreateDocument = () => {
 };
 
 const updateDocument = async (_url: string, { arg }: { arg: any }) => {
-  console.log("Updating document with data:", arg);
   const updateData: any = {
     updated_at: new Date().toISOString(),
   };

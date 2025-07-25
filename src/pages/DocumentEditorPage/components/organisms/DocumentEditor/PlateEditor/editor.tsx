@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 import type { VariantProps } from "class-variance-authority";
@@ -40,14 +38,14 @@ export function EditorContainer({
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof editorContainerVariants>) {
   return (
-      <PlateContainer
-        className={cn(
-          "ignore-click-outside/toolbar",
-          editorContainerVariants({ variant }),
-          className
-        )}
-        {...props}
-      />
+    <PlateContainer
+      className={cn(
+        "ignore-click-outside/toolbar",
+        editorContainerVariants({ variant }),
+        className
+      )}
+      {...props}
+    />
   );
 }
 

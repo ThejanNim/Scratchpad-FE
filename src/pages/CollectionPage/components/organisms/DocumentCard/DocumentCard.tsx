@@ -32,7 +32,7 @@ export default function DocumentCard({
       )}
     >
       <NavLink
-        to={"/documents/" + id}
+        to={"/document/" + id}
         className={clsx("flex", size === "small" ? "flex-col gap-1" : "gap-16")}
       >
         <div

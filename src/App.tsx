@@ -5,6 +5,7 @@ import DocumentEditorPage from "./pages/DocumentEditorPage/DocumentEditorPage";
 import { SessionProvider } from "./pages/Auth/SessionContext";
 import CollectionPage from "./pages/CollectionPage/CollectionPage";
 import EditorTemplate from "./components/templates/EditorTemplate/EditorTemplate";
+import TodoPage from "./pages/TodoPage/TodoPage";
 
 function App() {
   return (
@@ -13,10 +14,13 @@ function App() {
       <Route path="/auth/signup" element={<SignUp />} />
 
       <Route element={<SessionProvider />}>
-        <Route path="/" element={<Navigate to="/documents" />} />
+        <Route path="/" element={<Navigate to="/document" />} />
         <Route element={<EditorTemplate />}>
-          <Route path="/documents/:id" element={<DocumentEditorPage />} />
-          <Route path="/collection/:id" element={<CollectionPage />} />
+          <Route path="/document/:id" element={<DocumentEditorPage />} />
+          <Route path="/collection/:id">
+            <Route index element={<CollectionPage />} />
+            <Route path="todo" element={<TodoPage />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

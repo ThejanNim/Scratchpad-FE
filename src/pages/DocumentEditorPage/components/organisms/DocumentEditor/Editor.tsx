@@ -56,13 +56,6 @@ export default function Editor({
   documentId,
   onChange,
 }: EditorProps) {
-  console.log(
-    "Editor component loaded with documentId:",
-    documentId,
-    "and value:",
-    value
-  );
-
   const editor = usePlateEditor({
     plugins: EditorKit,
     value: value,

@@ -1,7 +1,3 @@
-'use client';
-
-import * as React from 'react';
-
 import type * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 
 import { useDraggable, useDropLine } from '@platejs/dnd';
@@ -85,6 +81,7 @@ import {
   ToolbarMenuGroup,
 } from '@/components/atoms/Toolbar/Toolbar';
 import { BorderAllIcon, BorderBottomIcon, BorderLeftIcon, BorderNoneIcon, BorderRightIcon, BorderTopIcon } from './table-icons';
+import { useCallback, useState } from 'react';
 export const TableElement = withHOC(
   TableProvider,
   function TableElement({
@@ -356,12 +353,12 @@ function ColorDropdownMenu({
   children: React.ReactNode;
   tooltip: string;
 }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const editor = useEditorRef();
   const selectedCells = usePluginOption(TablePlugin, 'selectedCells');
 
-  const onUpdateColor = React.useCallback(
+  const onUpdateColor = useCallback(
     (color: string) => {
       setOpen(false);
       setCellBackground(editor, { color, selectedCells: selectedCells ?? [] });
@@ -369,7 +366,7 @@ function ColorDropdownMenu({
     [selectedCells, editor]
   );
 
-  const onClearColor = React.useCallback(() => {
+  const onClearColor = useCallback(() => {
     setOpen(false);
     setCellBackground(editor, {
       color: null,
