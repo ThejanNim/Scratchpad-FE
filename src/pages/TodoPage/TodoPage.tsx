@@ -2,10 +2,12 @@ import { useState } from "react";
 import * as Kanban from "./components/organisms/TodoBoard/TodoBoard";
 import TaskCard from "./components/molecules/TaskCard/TaskCard";
 import TaskColumn from "./components/molecules/TaskColumn/TaskColumn";
+import type { TodoStatus } from "./types/todoStatus";
 
 export interface Task {
   id: string;
   title: string;
+  status: TodoStatus;
   description?: string;
   assignee?: string;
   dueDate?: string;
@@ -16,49 +18,49 @@ export default function TodoPage() {
     pending: [
       {
         id: "1",
-        title: "Add authentication",
+        title: "Format with proper heading structure",
+        status: 0,
         assignee: "John Doe",
-        dueDate: "2024-04-01",
       },
       {
         id: "2",
-        title: "Create API endpoints",
+        title: "Maintain consistent tone throughout",
+        status: 0,
         assignee: "Jane Smith",
-        dueDate: "2024-04-05",
       },
       {
         id: "3",
-        title: "Write documentation",
+        title: "Use short paragraphs and conversational tone",
+        status: 0,
         assignee: "Bob Johnson",
-        dueDate: "2024-04-10",
       },
     ],
     inProgress: [
       {
         id: "4",
-        title: "Design system updates",
+        title: "Verify facts and update outdated information",
+        status: 1,
         assignee: "Alice Brown",
-        dueDate: "2024-03-28",
       },
       {
         id: "5",
-        title: "Implement dark mode",
+        title: "Collect credible sources, statistics, and expert quotes",
+        status: 1,
         assignee: "Charlie Wilson",
-        dueDate: "2024-04-02",
       },
     ],
     completed: [
       {
         id: "7",
-        title: "Setup project",
+        title: "Identify and define your target audience for the article",
+        status: 2,
         assignee: "Eve Davis",
-        dueDate: "2024-03-25",
       },
       {
         id: "8",
-        title: "Initial commit",
+        title: "Use active voice to make sentences more engaging",
+        status: 2,
         assignee: "Frank White",
-        dueDate: "2024-03-24",
       },
     ],
   });
