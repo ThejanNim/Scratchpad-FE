@@ -59,20 +59,20 @@ export default function SlashList(props: any) {
   }));
 
   return (
-    <div className="bg-white border border-gray-300 rounded-lg flex flex-col gap-[0.1rem] overflow-auto p-2 relative">
+    <div className="min-w-[180px] w-80 bg-white rounded-[10px] slash-border overflow-y-auto max-h-[40vh]">
+      <div className="text-[rgb(115,114,110)] text-xs font-medium leading-[120%] select-none px-3 py-2">Basic Blocks</div>
       {props.items.length ? (
         props.items.map((item, index) => (
-          // index === selectedIndex ? 'is-selected' : ''
-          <button
+          <div
             className={clsx(
-              "items-center bg-transparent flex gap-1 text-right w-full hover:bg-gray-100",
-              index === selectedIndex && "!bg-gray-200"
+              "flex gap-2 rounded-[6px] items-center text-sm mx-2 px-1 h-8 opacity-[0.9] hover:bg-[rgba(55,53,47,0.06)]",
             )}
             key={index}
             onClick={() => selectItem(index)}
           >
+            <item.icon width={20} height={20} fill="#32302c" stroke="#32302c"/>
             {item.text}
-          </button>
+          </div>
         ))
       ) : (
         <div className="item">No result</div>

@@ -5,7 +5,7 @@ import type { Editor } from "@tiptap/core";
 import { Node } from "@tiptap/core";
 import type { DOMOutputSpec } from "@tiptap/pm/model";
 import { Node as ProseMirrorNode } from "@tiptap/pm/model";
-import { getSuggestionOptions } from "../../utils/get-default-suggestion-attributes";
+import { getSuggestionOptions } from "./get-default-suggestion-attributes";
 
 export interface SlashNodeAttrs {
   id: string | null;

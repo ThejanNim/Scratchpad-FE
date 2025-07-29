@@ -10,17 +10,17 @@ import { CheckboxListExtension } from "../../atoms/List/CheckboxList/CheckboxLis
 import { CheckboxItemExtension } from "../../atoms/List/CheckboxItem/CheckboxItemExtension";
 import Document from '@tiptap/extension-document'
 import Text from '@tiptap/extension-text'
-import Paragraph from '@tiptap/extension-paragraph'
 import { UndoRedo } from '@tiptap/extensions'
+import { ParagraphExtension } from "../../atoms/Paragraph/ParagraphExtension";
 
 export default function DocumentEditorV2() {
-  const content = "<p>Type a slash</p><p></p><p></p>";
+  const content = "";
 
   const editor = useEditor({
     extensions: [
       Document,
       Text,
-      Paragraph,
+      ParagraphExtension,
       UndoRedo,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
       Slash.configure({

@@ -1,6 +1,7 @@
 import { computePosition, flip, shift } from '@floating-ui/dom'
 import { posToDOMRect, ReactRenderer } from '@tiptap/react'
 import SlashList from './SlashList'
+import { Heading1, Heading2, Heading3, List, ListChecks, ListOrdered } from 'lucide-react'
 
 const updatePosition = (editor, element) => {
   const virtualElement = {
@@ -25,6 +26,7 @@ export default {
       {
         id: 'heading-1',
         text: 'Heading 1',
+        icon: Heading1,
         action: ({ editor }) => {
           editor.chain().focus().toggleHeading({ level: 1 }).run()
         }
@@ -32,6 +34,7 @@ export default {
       {
         id: 'heading-2',
         text: 'Heading 2',
+        icon: Heading2,
         action: ({ editor }) => {
           editor.chain().focus().toggleHeading({ level: 2 }).run()
         }
@@ -39,6 +42,7 @@ export default {
       {
         id: 'heading-3',
         text: 'Heading 3',
+        icon: Heading3,
         action: ({ editor }) => {
           editor.chain().focus().toggleHeading({ level: 3 }).run()
         }
@@ -46,6 +50,7 @@ export default {
       {
         id: "bullet-list",
         text: "Bullet List",
+        icon: List,
         action: ({ editor }) => {
           editor.chain().focus().toggleBulletList().run()
         }
@@ -53,6 +58,7 @@ export default {
       {
         id: "ordered-list",
         text: "Ordered List",
+        icon: ListOrdered,
         action: ({ editor }) => {
           editor.chain().focus().toggleOrderedList().run()
         }
@@ -60,6 +66,7 @@ export default {
       {
         id: "checkbox-list",
         text: "Checkbox List",
+        icon: ListChecks,
         action: ({ editor }) => {
           editor.chain().focus().toggleCheckboxList().run()
         }
